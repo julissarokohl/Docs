@@ -26,6 +26,7 @@ Let's say we have an email template in the Chunk 'myEmailTemplate'. We want to s
 $message = $modx->getChunk('myEmailTemplate');
 
 $modx->getService('mail', 'mail.modPHPMailer');
+$modx->mail->set(modMail::MAIL_ENCODING,'quoted-printable'); // Add in-line images using 'quoted-printable' encoding.
 $modx->mail->set(modMail::MAIL_BODY,$message);
 $modx->mail->set(modMail::MAIL_FROM,'me@example.org');
 $modx->mail->set(modMail::MAIL_FROM_NAME,'Johnny Tester');
@@ -42,6 +43,8 @@ $modx->mail->reset();
 Simple, no?
 
 Note that we have to reset() if we want to send mail again; this resets all the fields to blank. Also, the fields above are _optional_ (just like PHPMailer), so that if you didn't want to specify a 'reply-to' (though we recommend it!) you can.
+
+Sending images in the body of the email can be easily accomplished by using the full path of the image file in the template and setting the encoding to quoted-printable.
 
 Also, if you want to send the email to multiple addresses, you can simply call address('to') again, like so:
 
